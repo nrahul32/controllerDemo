@@ -8,6 +8,7 @@ public class ControllerDemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ControllerDemoApplication.class, args);
+		System.out.println("Hello, application has started.");
 	}
 
 }
