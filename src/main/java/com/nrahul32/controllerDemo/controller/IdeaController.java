@@ -75,6 +75,44 @@ public class IdeaController {
     }
 
     /**
+     * Update an Idea
+     * PUT
+     * localhost:8080/demo_app/v1/idea/1
+     *
+     * BODY:
+     * {
+     *     "id":1,
+     *     "title":"new",
+     *     "author":"me",
+     *     "description":"new idea added via post"
+     * }
+     *
+     * PathVariable is needed to get the id from the request path
+     * RequestBody is needed to map the JSON passed in request to the IdeaDTO object
+     * Consumes indicates this method only accepts JSON in request body
+     * Produces indicates this method only accepts JSON in response body
+     */
+    @PutMapping(value = {"/ideas/{id}"}, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateIdea(@PathVariable(name="id") int id, @RequestBody IdeaDTO ideaDTO) {
+        IDEA_MAP.put(id, ideaDTO);
+        return new ResponseEntity(ideaDTO, HttpStatus.OK);
+    }
+
+    /**
+     * Delete an idea based on the id
+     * DELETE
+     * localhost:8080/demo_app/v1/ideas/1
+     *
+     * @param id
+     */
+
+    @DeleteMapping(value = {"/ideas/{id}"})
+    public ResponseEntity DeleteOfId(@PathVariable(name="id") int id) {
+        IDEA_MAP.remove(id);
+        return new ResponseEntity(null, HttpStatus.OK);
+    }
+
+    /**
      * Gets all the ideas
      *
      * GET
